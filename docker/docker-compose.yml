@@ -1,0 +1,20 @@
+version: '3'
+services:
+    san:
+        image: docker.ramp.eu/opil/opil.iot.san:stable
+        #give root permissions and name SAN
+        privileged: true
+        container_name: 'SAN'
+        #show informational messages from SAN in interactive terminal
+        stdin_open: true
+        tty: true 
+        #hijack host ip for internal server
+        network_mode: 'host'
+        #restart container in case of trouble unless stopped by user
+        restart: unless-stopped
+        volumes:
+        - ./san_socket_server.py:/code/Drivers/san_socket_server.py
+        - ./config.json:/code/config.json
+        working_dir: /code
+        
+        command: python3 ./san.py

@@ -1,0 +1,23 @@
+{
+    "contextBroker": {
+        "host": "ip-address",
+        "port": "1026"
+    },
+    "sanConfig": {
+        "sensors": [
+            {
+                "sensorID": "trigger_sensor_1",
+                "operationMode": {
+                    "mode": "event-driven"
+                },    
+                "driver": "san_socket_server",
+                "driverConfig": {
+                    "sensorType": "SWITCH_SENSOR",
+                    "measurementType": "boolean",
+                    "sensorManufacturer": "Robotnik Automation"
+                },
+                "sanID": "trigger_SAN_1"
+            }
+        ]
+    }
+}
