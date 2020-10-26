@@ -38,7 +38,13 @@ Then, start docker container in ```san_socket/docker/docker-compose.yml```
 $ sudo docker-compose up
 ```
 
-3. Send a signal from ROS to OPIL server using SAN module. This package creates a ROS
+3. Launch ROS client for SAN module comunication
+
+```
+$ roslaunch san_socket client.launch 
+```
+
+4. Send a signal from ROS to OPIL server using SAN module. This package creates a ROS
 service called ```san_socket/trigger ```. Use it to send a flag to OPIL Server.
 
 ```
