@@ -10,7 +10,7 @@ MESSAGE_SIZE = 4
 
 
 # The class has to have the same name that the file 
-class san_socket_server(SANDriver.SANDriver):
+class button_g2_script(SANDriver.SANDriver):
 
     def setup(self):
 
@@ -19,7 +19,7 @@ class san_socket_server(SANDriver.SANDriver):
         self.setMeta('measurementType', self.fromConfig("measurementType"))
         self.setMeta('sensorType', self.fromConfig("sensorType"))
 
-        self.init_background_san_server(ip_address = 'localhost', port = 10000) 
+        self.init_background_san_server(ip_address = 'localhost', port = 10003) 
         self.trigger = False
 
 

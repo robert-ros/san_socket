@@ -13,7 +13,14 @@ services:
         #restart container in case of trouble unless stopped by user
         restart: unless-stopped
         volumes:
-        - ./san_socket_server.py:/code/Drivers/san_socket_server.py
+        - ./button_g1_script.py:/code/Drivers/button_g1_script.py
+        - ./button_r1_script.py:/code/Drivers/button_r1_script.py
+        - ./button_g2_script.py:/code/Drivers/button_g2_script.py
+        - ./button_r2_script.py:/code/Drivers/button_r2_script.py
+        - ./door_script.py:/code/Drivers/door_script.py
+        - ./cell_1_script.py:/code/Drivers/cell_1_script.py
+        - ./cell_2_script.py:/code/Drivers/cell_2_script.py
+        - ./cell_3_script.py:/code/Drivers/cell_3_script.py
         - ./config.json:/code/config.json
         working_dir: /code
         

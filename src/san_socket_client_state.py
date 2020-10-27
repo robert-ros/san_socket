@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from std_srvs.srv import Trigger, TriggerResponse 
+from std_srvs.srv import SetBool, SetBoolResponse 
 import socket
 import sys
 
@@ -24,7 +24,7 @@ class SocketSAN:
         self.get_ros_params()
 
         # Create service to send a switch flag
-        self.san_socket_flag = rospy.Service('san_socket/trigger', Trigger, self.callback_san_socket_trigger)
+        self.san_socket_flag = rospy.Service('san_socket/state_'+str(self.id), SetBool, self.callback_san_socket_state)
 
         # Connect to server running in san docker container
         self.san_server_connection()
@@ -32,8 +32,8 @@ class SocketSAN:
     def get_ros_params(self):
 
         self.address = rospy.get_param(self.node_name + '/address','localhost')
-        self.port = rospy.get_param(self.node_name + '/port', 10000)
-
+        self.port = rospy.get_param(self.node_name + '/port',10000)
+        self.id = rospy.get_param(self.node_name + '/id', 0)
 
 
     def san_server_connection(self):
@@ -71,30 +71,33 @@ class SocketSAN:
 
         return status, data
 
-    def trigger_san_socket(self):
+    def state_san_socket(self, state):
 
-
-        # Trigger san server socket
-        self.san_server_write("True")
-
+        # Send state to san server socket
+        if state == True:
+            self.san_server_write("True")
+        else:
+            self.san_server_write("False")
+        
         # Get response
         status, data = self.san_server_read()
 
 
         if status == RESPONSE_OK:
-            message = "Trigger sent to SAN docker successfully"
+            message = str(state) + " sent to SAN docker successfully"
             success = True
         else:
-            message = "Error sent trigger to SAN docker"
+            message = "Error sent " + str(state) + " to SAN docker"
             success = False
 
         return message, success
 
 
-    def callback_san_socket_trigger(self, req):
-
-        result = TriggerResponse()
-        result.message, result.success = self.trigger_san_socket()
+    def callback_san_socket_state(self, req):
+        
+        state = req.data
+        result = SetBoolResponse()
+        result.message, result.success = self.state_san_socket(state)
         return result
 
 
