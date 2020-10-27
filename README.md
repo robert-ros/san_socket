@@ -1,11 +1,20 @@
-# san_socket
+# san_socket multiple
 
 # Overview
 
-This package pretends to be a bridge between ROS and Sensor Agent Node. The SAN module is a code
-running on a docker container and it communicates to OPIL Server. Initially this mode is configured
-to work like a button. On the ROS side, a socket is opened to talk to the docker container. It creates
-a service that triggers SAN module. In this way SAN can send a signal to OPIL server.
+This package pretends to be a bridge between ROS and Sensor Agent Node using multiple instances.
+
+
+
+trigger_0 -> MOD_BUTTON_G1  Botón verde de la estación 1
+trigger_1 -> MOD_BUTTON_R1  Botón rojo de la estación 1
+trigger_2 -> MOD_BUTTON_G2  Botón verde de la estación 2
+trigger_3 -> MOD_BUTTON_R2  Botón rojo de la estación 2
+trigger_4 -> MOD_FDC_1      Final de carrera 1 (Puerta arriba)
+trigger_5 -> MOD_FDC_2      Final de carrera 2 (Puerta abajo)
+trigger_6 -> MOD_PHOTO_1    Fotocélula puesto 1 alamacén
+trigger_7 -> MOD_PHOTO_2    Fotocélula puesto 1 alamacén
+trigger_8 -> MOD_PHOTO_3    Fotocélula puesto 1 alamacén
 
 # Instructions 
 
@@ -37,6 +46,10 @@ Then, start docker container in ```san_socket/docker/docker-compose.yml```
 ```
 $ sudo docker-compose up
 ```
+
+
+
+
 
 3. Launch ROS client for SAN module comunication
 
